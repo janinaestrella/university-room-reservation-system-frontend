@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootswatch/dist/lumen/bootstrap.min.css';
-// import './App.css';
+import './App.css';
 import Navbar from './components/Navbar';
 import LandingPage from './pages/LandingPage';
 import Room from './pages/Room';
@@ -17,6 +17,8 @@ function App() {
 	const url = "https://urrs.herokuapp.com"; //backend
 	
 	const [rooms, setRooms] = useState([])
+	const [lastAddedRoom, setLastAddedRoom] = useState({_id: null})
+
 	const [user, setUser] = useState ({
 		_id: null,
 		firstname: null,
@@ -57,10 +59,11 @@ function App() {
 		})
 		.then (rooms => {
 			// console.log(rooms)
+			// insert loading here
 			return setRooms(rooms);
 		})
 
-	},[])
+	},[lastAddedRoom])
 
 	const handleSetUserLogin = (user) => {
 		setUser(user)
@@ -76,6 +79,10 @@ function App() {
 		})
 	}
 
+	const handleLastAddedRoom = (id) => {
+		setLastAddedRoom({ _id: id})
+	}
+
 	return (
 		<React.Fragment>
 			<Router>
@@ -88,6 +95,7 @@ function App() {
 						user={user}
 						rooms={rooms}
 						url={url}
+						handleLastAddedRoom={handleLastAddedRoom}
 						/>
 					</Route>
 

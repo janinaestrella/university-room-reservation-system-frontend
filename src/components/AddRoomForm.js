@@ -1,6 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const AddRoomForm = () => {
+const AddRoomForm = ({url, handleLastAddedRoom}) => {
+	
+	const [room, setRoom] = useState({})
+
+	const handleChange = e => {
+		setRoom({
+			...room,
+			[e.target.id] : e.target.value
+		})
+	}
+
+	const handleImage = e => {
+		setRoom({
+			...room,
+			image : e.target.files[0] 
+		})
+	}
+
+	const handleSubmit = e => {
+		e.preventDefault();
+
+		let formData = new FormData();
+		
+		formData.append('name', room.name)
+		formData.append('price', room.price)
+		formData.append('description', room.description)
+		formData.append('location', room.location)
+		formData.append('image', room.image)
+		
+		//save new room to database
+		fetch(url + '/rooms', {
+			method: 'POST',
+			headers: {
+				'Authorization' : window.localStorage.getItem('token')
+			},
+			body: formData
+		})
+		.then (response => {
+			return response.json()
+		})
+		.then (room => {
+			handleLastAddedRoom(room._id)
+			setRoom({
+				name:"",
+				price:"",
+				location:"",
+				description:"",
+				image:""
+			})
+		})
+
+
+	}
+
+
 	return (
 		<div className="col-12 col-sm-12 col-md-4 col-lg-3">
 			<div className="row">
@@ -9,9 +63,9 @@ const AddRoomForm = () => {
 				</div>
 
 				<div className="py-3 mx-3">
-					<form>
+					<form onSubmit={handleSubmit}>
 						<div className="form-group">
-							<input type="text" className="form-control" name="name" id="name" placeholder="Enter Room Name"/>
+							<input onChange={handleChange} type="text" className="form-control" name="name" id="name" placeholder="Enter Room Name"/>
 								{/*<small id="name" className="text-muted">Enter Room Name</small>*/}
 						</div>
 
@@ -19,7 +73,7 @@ const AddRoomForm = () => {
 							<div className="input-group-prepend">
 							<span className="input-group-text">&#8369;</span>
 							</div>
-							<input type="text" className="form-control" name="price" id="price" placeholder="Enter Room price"/>
+							<input onChange={handleChange} type="text" className="form-control" name="price" id="price" placeholder="Enter Room price"/>
 							<div className="input-group-append">
 							<span className="input-group-text">.00</span>
 							</div>
@@ -27,7 +81,7 @@ const AddRoomForm = () => {
 						</div>
 
 						<div className="form-group">
-							<select id="location" name="location" className="form-control">
+							<select onChange={handleChange} id="location" name="location" className="form-control">
 								{/*<option value="" disabled>Select Room Location</option>*/}
 								<option defaultValue disabled>Select Room Location</option>
 							    <option value="1">1st Floor</option>
@@ -39,21 +93,20 @@ const AddRoomForm = () => {
 
 						<div className="form-group">
 							<label htmlFor="image">Room Image:</label>
-							<input type="file" name="image" id="image" className="form-control-file"/>
+							<input onChange={handleImage} type="file" name="image" id="image" className="form-control-file"/>
 						</div>
 
 						<div className="form-group">
 							<label htmlFor="description">Room Description:</label>
-							<textarea name="description" id="description" cols="10" rows="3" className="form-control"></textarea>
+							<textarea onChange={handleChange} name="description" id="description" cols="10" rows="3" className="form-control"></textarea>
+						</div>
+					
+					
+					
+						<div className="text-center">
+							<button className="btn btn-success text-center w-75 ">Add Room</button>	
 						</div>
 					</form>
-					
-					
-					<div className="text-center">
-					<button className="btn btn-success text-center w-75 ">Add Room</button>
-						
-					</div>
-					
 					
 				</div>
 			</div>

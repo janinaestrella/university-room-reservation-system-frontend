@@ -2,13 +2,16 @@ import React from 'react';
 import RoomCard from './../components/RoomCard';
 import AddRoomForm from './../components/AddRoomForm';
 
-const Room = ({user, rooms, url}) => {
+const Room = ({user, rooms, url, handleLastAddedRoom}) => {
 
 	let addRooms = () => {
 		//display AddRoomForm is Admin is logged in
 		if (user.isAdmin){
 			return (
-				<AddRoomForm />	
+				<AddRoomForm 
+				url={url} 
+				handleLastAddedRoom={handleLastAddedRoom}
+				/>	
 			)
 		}
 	}
