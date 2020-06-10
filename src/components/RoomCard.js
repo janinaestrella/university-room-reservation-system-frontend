@@ -39,7 +39,6 @@ const RoomCard = ({room, url, handleLastDeletedRoom}) => {
 						</div>
 
 						<div className="card-footer d-flex justify-content-end">
-							<button  className="btn btn-warning mx-1">Edit</button>
 							<button onClick={() => handleDelete(room._id)} className="btn btn-danger mx-1">Delete</button>
 							<button className="btn btn-primary mx-1">I'd like to reserve this!</button>
 						</div>

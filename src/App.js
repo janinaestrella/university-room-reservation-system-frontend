@@ -19,6 +19,7 @@ function App() {
 	const [rooms, setRooms] = useState([])
 	const [lastAddedRoom, setLastAddedRoom] = useState({_id: null})
 	const [lastDeletedRoom, setLastDeletedRoom] = useState({_id: null})
+	const [updatedRoom, setUpdatedRoom] = useState({_id:null})
 
 	const [user, setUser] = useState ({
 		_id: null,
@@ -64,7 +65,7 @@ function App() {
 			return setRooms(rooms);
 		})
 
-	},[lastAddedRoom, lastDeletedRoom])
+	},[lastAddedRoom, lastDeletedRoom, updatedRoom])
 
 	const handleSetUserLogin = (user) => {
 		setUser(user)
@@ -88,6 +89,10 @@ function App() {
 		setLastDeletedRoom({ _id: id})
 	}
 
+	const handleUpdatedRoom = (id) => {
+		setUpdatedRoom({ _id: id})
+	}
+
 	return (
 		<React.Fragment>
 			<Router>
@@ -102,6 +107,7 @@ function App() {
 						url={url}
 						handleLastAddedRoom={handleLastAddedRoom}
 						handleLastDeletedRoom={handleLastDeletedRoom}
+						handleUpdatedRoom={handleUpdatedRoom}
 						/>
 					</Route>
 
