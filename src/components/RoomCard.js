@@ -1,20 +1,24 @@
 import React from 'react';
 
-const RoomCard = () => {
+const RoomCard = ({room, url}) => {
 	
 	return (
 		<div>
 			<div className="roomList card my-3">
 				<div className="row no-gutters">
 					<div className="col-md-4">
-					<img src="..." className="card-img img-thumbnail" alt="..."/>
+					<img src={url + /public/ + room.image} className="card-img img-thumbnail" alt=""/>
 					</div>
 
 					<div className="col-md-8">
 						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-							<p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+							<h5 className="card-title"><strong>{room.name}</strong></h5>
+							<p className="card-text">{room.description}</p>
+							<p className="card-text">
+							<span>Location: {room.location}</span> &nbsp; &nbsp;
+							<span>Price: <strong>&#8369; {room.price} </strong></span>
+
+							</p>
 						</div>
 
 						<div className="card-footer d-flex justify-content-end">

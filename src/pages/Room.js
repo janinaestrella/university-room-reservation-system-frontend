@@ -2,7 +2,7 @@ import React from 'react';
 import RoomCard from './../components/RoomCard';
 import AddRoomForm from './../components/AddRoomForm';
 
-const Room = ({user}) => {
+const Room = ({user, rooms, url}) => {
 
 	let addRooms = () => {
 		//display AddRoomForm is Admin is logged in
@@ -12,6 +12,18 @@ const Room = ({user}) => {
 			)
 		}
 	}
+	
+	let roomDetails = rooms.map ( room => {
+		return (
+			<div key={room._id}>
+				<RoomCard 
+				room={room}
+				url={url} 
+				/>
+			</div>
+		)
+	})
+
 
 	return (
 		<div className="container my-5">
@@ -25,7 +37,7 @@ const Room = ({user}) => {
 					<div className="border-bottom border-primary title">
 						<h1> Select a room </h1>	
 					</div>
-					<RoomCard />
+					{roomDetails}
 				</div>
 			</div>
 		</div>

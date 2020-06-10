@@ -29,7 +29,7 @@ const AddRoomForm = () => {
 						<div className="form-group">
 							<select id="location" name="location" className="form-control">
 								{/*<option value="" disabled>Select Room Location</option>*/}
-								<option selected disabled>Select Room Location</option>
+								<option defaultValue disabled>Select Room Location</option>
 							    <option value="1">1st Floor</option>
 							    <option value="2">2nd Floor</option>
 							    <option value="3">3rd Floor</option>

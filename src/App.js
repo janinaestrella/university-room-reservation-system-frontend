@@ -15,7 +15,8 @@ import {
 function App() {
 
 	const url = "https://urrs.herokuapp.com"; //backend
-
+	
+	const [rooms, setRooms] = useState([])
 	const [user, setUser] = useState ({
 		_id: null,
 		firstname: null,
@@ -26,7 +27,7 @@ function App() {
 	
 	//Authorization check. This will fire if user null values will be changed
 	useEffect( () => {
-		if(window.localStorage.getItem("pushcartToken")){ //para nakabase sa token
+		if(window.localStorage.getItem("token")){ //para nakabase sa token
 			fetch(url + '/users/profile', {
 				headers: {
 					'Authorization' :  window.localStorage.getItem("token"),
@@ -47,6 +48,19 @@ function App() {
 				})
 		}
 	}, []);
+
+	//get rooms from database and reload if new room is added, deleted, or updated
+	useEffect ( () => {
+		fetch(url + '/rooms')
+		.then (response => {
+			return response.json()
+		})
+		.then (rooms => {
+			// console.log(rooms)
+			return setRooms(rooms);
+		})
+
+	},[])
 
 	const handleSetUserLogin = (user) => {
 		setUser(user)
@@ -71,7 +85,10 @@ function App() {
 				<Switch>
 					<Route exact path ="/">
 						<Room 
-						user={user}/>
+						user={user}
+						rooms={rooms}
+						url={url}
+						/>
 					</Route>
 
 					<Route path ="/login">
