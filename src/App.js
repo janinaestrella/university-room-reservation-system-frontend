@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootswatch/dist/lumen/bootstrap.min.css';
 import './App.css';
 import Navbar from './components/Navbar';
+import LoadingSpinner from './components/LoadingSpinner';
 import LandingPage from './pages/LandingPage';
 import Room from './pages/Room';
 import Reservation from './pages/Reservation';
@@ -15,6 +16,8 @@ import {
 function App() {
 
 	const url = "https://urrs.herokuapp.com"; //backend
+
+	const [isLoading, setIsLoading] = useState(false)
 	
 	const [rooms, setRooms] = useState([])
 	const [lastAddedRoom, setLastAddedRoom] = useState({_id: null})
@@ -55,13 +58,14 @@ function App() {
 
 	//get rooms from database and reload if new room is added, deleted, or updated
 	useEffect ( () => {
+		setIsLoading(true)
 		fetch(url + '/rooms')
 		.then (response => {
 			return response.json()
 		})
 		.then (rooms => {
 			// console.log(rooms)
-			// insert loading here
+			setIsLoading(false)
 			return setRooms(rooms);
 		})
 
@@ -108,6 +112,7 @@ function App() {
 						handleLastAddedRoom={handleLastAddedRoom}
 						handleLastDeletedRoom={handleLastDeletedRoom}
 						handleUpdatedRoom={handleUpdatedRoom}
+						isLoading={isLoading}
 						/>
 					</Route>
 

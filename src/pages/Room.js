@@ -2,8 +2,9 @@ import React from 'react';
 import RoomCard from './../components/RoomCard';
 import AddRoomForm from './../components/AddRoomForm';
 import UpdateRoomForm from './../components/UpdateRoomForm';
+import LoadingSpinner from './../components/LoadingSpinner';
 
-const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, handleUpdatedRoom}) => {
+const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, handleUpdatedRoom, isLoading}) => {
 	
 	let roomDetails = rooms.map ( room => {
 		return (
@@ -68,7 +69,9 @@ const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, han
 					<div className="border-bottom border-primary title">
 						<h1> Select a room </h1>	
 					</div>
-					{roomDetails}
+
+					{isLoading ? <LoadingSpinner/> : roomDetails}
+					
 
 
 				</div>

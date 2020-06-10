@@ -51,7 +51,7 @@ const UpdateRoomForm = ({url, rooms, handleUpdatedRoom}) => {
 		formData.append('location', selectedRoom.location)
 		formData.append('image', selectedRoom.image)
 
-		//save new room to database
+		//save updated room to database
 		fetch ( url + '/rooms/' + selectedRoom._id, {
 			method: 'PUT',
 			headers: {
@@ -77,34 +77,29 @@ const UpdateRoomForm = ({url, rooms, handleUpdatedRoom}) => {
 						<option value="" disabled>Select a room</option>
 					    {roomList}
 					</select>	
-					{/*<small id="helpId" className="text-muted">Select Room Location</small>*/}
 				</div>
 
 				<div className="form-group">
-					<input onChange={handleChange} type="text" className="form-control" id="name" value={selectedRoom.name}/>
-						{/*<small id="name" className="text-muted">Enter Room Name</small>*/}
+					<input onChange={handleChange} type="text" className="form-control" name="name" id="name" value={selectedRoom.name}/>
 				</div>
 
 				<div className="input-group mb-3">
 					<div className="input-group-prepend">
 					<span className="input-group-text">&#8369;</span>
 					</div>
-					<input onChange={handleChange} value={selectedRoom.price} type="text" className="form-control" id="price" placeholder="Enter Room price"/>
+					<input onChange={handleChange} value={selectedRoom.price} type="text" className="form-control" name="price" id="price" placeholder="Enter Room price"/>
 					<div className="input-group-append">
 					<span className="input-group-text">.00</span>
 					</div>
-					{/*<small id="price" className="text-muted">Enter Room Price</small>*/}
 				</div>
 
 				<div className="form-group">
-					<select onChange={handleChange} value={selectedRoom.location} id="location" className="form-control">
-						{/*<option value="" disabled>Select Room Location</option>*/}
+					<select onChange={handleChange} value={selectedRoom.location} name="location" id="location" className="form-control">
 						<option value="" disabled>Select Room Location</option>
 					    <option value="1st Floor">1st Floor</option>
 					    <option value="2nd Floor">2nd Floor</option>
 					    <option value="3rd Floor">3rd Floor</option>
 					</select>	
-					{/*<small id="helpId" className="text-muted">Select Room Location</small>*/}
 				</div>
 
 				<div className="form-group">
