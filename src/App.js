@@ -66,7 +66,7 @@ function App() {
 		<React.Fragment>
 			<Router>
 				
-				<Navbar handleLogout={handleLogout}/>
+				<Navbar handleLogout={handleLogout} user={user}/>
 				
 				<Switch>
 					<Route exact path ="/">

@@ -1,11 +1,34 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-const Navbar = ({handleLogout}) => {
+const Navbar = ({handleLogout, user}) => {
 	
 	const handleClick = () => {
 		window.localStorage.removeItem("token")
 		handleLogout()
+	}
+
+	const rightNav = () => {
+		if(!user._id){
+			return (
+				<React.Fragment>
+					<li className="nav-item">
+						<NavLink className="nav-link" to="/login">Login</NavLink>
+					</li>
+				</React.Fragment>
+			)
+		}else{
+			return (
+				<React.Fragment>
+					<li className="nav-item">
+						<span className="nav-link active">Welcome <strong>{user.firstname}</strong>!</span>
+					</li>
+					<li className="nav-item">
+						<NavLink onClick={handleClick}className="nav-link" to="/login">Logout</NavLink>
+					</li>
+				</React.Fragment>
+			)
+		}
 	}
 
 	return (
@@ -18,7 +41,7 @@ const Navbar = ({handleLogout}) => {
 			<div className="collapse navbar-collapse" id="navbarColor01">
 				<ul className="navbar-nav mr-auto">
 					<li className="nav-item">
-						<NavLink className="nav-link" exact to="/">Rooms <span className="sr-only">(current)</span></NavLink>
+						<NavLink className="nav-link" exact to="/">Rooms</NavLink>
 					</li>
 					<li className="nav-item">
 						<NavLink className="nav-link" to="/requests">Requests</NavLink>
@@ -30,15 +53,7 @@ const Navbar = ({handleLogout}) => {
 				</ul>
 
 				<ul className="navbar-nav ml-auto">
-					<li className="nav-item">
-						<NavLink className="nav-link" to="/login">Login</NavLink>
-					</li>
-					<li className="nav-item">
-						<span className="nav-link">Welcome <strong>User</strong>!</span>
-					</li>
-					<li className="nav-item">
-						<NavLink onClick={handleClick}className="nav-link" to="/login">Logout</NavLink>
-					</li>
+					{rightNav()}
 				</ul>
 			</div>
 		</nav>
