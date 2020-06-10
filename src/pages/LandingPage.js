@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import Login from './../components/Login';
 import Register from './../components/Register';
 import ErrorHandling from './../components/ErrorHandling';
+import SuccessMessage from './../components/SuccessMessage';
 import { Redirect } from 'react-router-dom';
 
 const LandingPage = ({url}) => {
 	
 	const [error, setError] = useState({
 		hasError: false,
+		message: null
+	});
+
+	const [success, setSuccess] = useState({
+		isSuccess: false,
 		message: null
 	});
 
@@ -28,7 +34,10 @@ const LandingPage = ({url}) => {
 			 		message: data.error
 			 	})
 			} else {
-				return <Redirect to="/" />
+				setSuccess({
+			 		isSuccess: true,
+					message: "Registered Successfully. You may now login."
+			 	})
 			}
 		})
 	}
@@ -50,6 +59,7 @@ const LandingPage = ({url}) => {
 					<div className=" container border rounded-sm p-3">
 						<h1>Register</h1>
 							{error.hasError ? <ErrorHandling message={error.message} /> : ""}
+							{success.isSuccess ? <SuccessMessage message={success.message} /> : ""}
 							<Register 
 							url={url}
 							registerUser={registerUser}
