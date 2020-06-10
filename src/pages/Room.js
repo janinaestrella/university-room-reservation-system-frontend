@@ -2,7 +2,7 @@ import React from 'react';
 import RoomCard from './../components/RoomCard';
 import AddRoomForm from './../components/AddRoomForm';
 
-const Room = ({user, rooms, url, handleLastAddedRoom}) => {
+const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom}) => {
 
 	let addRooms = () => {
 		//display AddRoomForm is Admin is logged in
@@ -22,6 +22,7 @@ const Room = ({user, rooms, url, handleLastAddedRoom}) => {
 				<RoomCard 
 				room={room}
 				url={url} 
+				handleLastDeletedRoom={handleLastDeletedRoom}
 				/>
 			</div>
 		)
