@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Login from './../components/Login';
 import Register from './../components/Register';
+import ErrorHandling from './../components/ErrorHandling';
+import { Redirect } from 'react-router-dom';
 
 const LandingPage = ({url}) => {
+	
+	const [error, setError] = useState({
+		hasError: false,
+		message: null
+	});
 
 	const registerUser = (user) => {
 		fetch (url + '/users/register', {
@@ -15,6 +22,14 @@ const LandingPage = ({url}) => {
 		.then( response => response.json())
 		.then( data => {
 			console.log(data)
+			if(data.error){
+				setError({
+			 		hasError: true,
+			 		message: data.error
+			 	})
+			} else {
+				return <Redirect to="/" />
+			}
 		})
 	}
 
@@ -34,7 +49,7 @@ const LandingPage = ({url}) => {
 				<div className="col-12 col-md-6 mx-auto  px-5">
 					<div className=" container border rounded-sm p-3">
 						<h1>Register</h1>
-						
+							{error.hasError ? <ErrorHandling message={error.message} /> : ""}
 							<Register 
 							url={url}
 							registerUser={registerUser}
