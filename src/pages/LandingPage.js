@@ -5,7 +5,7 @@ import ErrorHandling from './../components/ErrorHandling';
 import SuccessMessage from './../components/SuccessMessage';
 import { Redirect } from 'react-router-dom';
 
-const LandingPage = ({url}) => {
+const LandingPage = ({url, handleSetUserLogin, user}) => {
 	
 	const [error, setError] = useState({
 		hasError: false,
@@ -16,6 +16,10 @@ const LandingPage = ({url}) => {
 		isSuccess: false,
 		message: null
 	});
+
+	if(user._id){
+		return <Redirect to="/" />
+	}
 
 	const registerUser = (user) => {
 		fetch (url + '/users/register', {
@@ -42,15 +46,46 @@ const LandingPage = ({url}) => {
 		})
 	}
 
+	const loginUser = (credentials) => {
+		fetch (url + '/users/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type' : 'application/json'
+			},
+			body: JSON.stringify(credentials)
+		})
+		.then ( response => {
+			return response.json()
+		})
+		.then ( data => {
+			if(data.error){
+				//show error
+				setError({
+					hasError: true,
+					message: data.error
+				})
+			}else {
+				//save to localStorage
+				window.localStorage.setItem("token", "Bearer " + data.token)
+				handleSetUserLogin(data.user)
+			}
+		})
+	}
+
 	return (
 		<div className="container text-center my-5">
 			<h1>University Room Reservation System</h1>
 			<div className="row my-5">
+				{error.hasError ? <ErrorHandling message={error.message} /> : ""}
+				{success.isSuccess ? <SuccessMessage message={success.message} /> : ""}
+
 				<div className="col-12 col-md-6 mx-auto  px-5">
 					<div className="container border rounded-sm p-3">
 						<h1>Login</h1>
 
-							<Login />
+							<Login 
+							loginUser={loginUser}
+							/>
 
 					</div>
 				</div>
@@ -58,10 +93,8 @@ const LandingPage = ({url}) => {
 				<div className="col-12 col-md-6 mx-auto  px-5">
 					<div className=" container border rounded-sm p-3">
 						<h1>Register</h1>
-							{error.hasError ? <ErrorHandling message={error.message} /> : ""}
-							{success.isSuccess ? <SuccessMessage message={success.message} /> : ""}
+							
 							<Register 
-							url={url}
 							registerUser={registerUser}
 							/>
 							

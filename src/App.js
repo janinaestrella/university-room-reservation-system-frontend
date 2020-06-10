@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootswatch/dist/lumen/bootstrap.min.css';
 // import './App.css';
 import Navbar from './components/Navbar';
@@ -16,13 +16,57 @@ function App() {
 
 	const url = "https://urrs.herokuapp.com"; //backend
 
-	const [user, setUser] = useState ({})
+	const [user, setUser] = useState ({
+		_id: null,
+		firstname: null,
+		lastname: null,
+		email: null,
+		isAdmin: false,
+	})
+	
+	//Authorization check. This will fire if user null values will be changed
+	useEffect( () => {
+		if(window.localStorage.getItem("pushcartToken")){ //para nakabase sa token
+			fetch(url + '/users/profile', {
+				headers: {
+					'Authorization' :  window.localStorage.getItem("token"),
+				}
+			})
+				.then(response => {
+					if (response.status === 401){
+						return {error: "Unauthorized"}
+					} else {
+						return response.json()
+					}
+				})
+				.then(data => {
+					if(!data.error){
+						setUser(data)
+					}
+
+				})
+		}
+	}, []);
+
+	const handleSetUserLogin = (user) => {
+		setUser(user)
+	}
+
+	const handleLogout = () => {
+		setUser({
+			_id: null,
+			firstname: null,
+			lastname: null,
+			email: null,
+			isAdmin: false,
+		})
+	}
 
 	return (
 		<React.Fragment>
 			<Router>
 				
-				<Navbar />
+				<Navbar handleLogout={handleLogout}/>
 				
 				<Switch>
 					<Route exact path ="/">
@@ -32,6 +76,8 @@ function App() {
 					<Route path ="/login">
 						<LandingPage 
 						url={url}
+						handleSetUserLogin={handleSetUserLogin}
+						user={user}
 						/>
 					</Route>
 

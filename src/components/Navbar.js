@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({handleLogout}) => {
+	
+	const handleClick = () => {
+		window.localStorage.removeItem("token")
+		handleLogout()
+	}
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -32,7 +37,7 @@ const Navbar = () => {
 						<span className="nav-link">Welcome <strong>User</strong>!</span>
 					</li>
 					<li className="nav-item">
-						<NavLink className="nav-link" to="/login">Logout</NavLink>
+						<NavLink onClick={handleClick}className="nav-link" to="/login">Logout</NavLink>
 					</li>
 				</ul>
 			</div>
