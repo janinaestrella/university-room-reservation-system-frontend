@@ -70,7 +70,8 @@ function App() {
 				
 				<Switch>
 					<Route exact path ="/">
-						<Room />
+						<Room 
+						user={user}/>
 					</Route>
 
 					<Route path ="/login">
