@@ -7,14 +7,14 @@ const Login = () => {
 			<div className="col-12">
 				<div className="input-group mb-3">
 					<div className="input-group-prepend">
-					<span className="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+					<span className="input-group-text" id="basic-addon1"><i className="fas fa-envelope"></i></span>
 					</div>
 					<input type="text" className="form-control" placeholder="Enter your email"/>
 				</div>
 
 				<div className="input-group mb-3">
 					<div className="input-group-prepend">
-					<span className="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+					<span className="input-group-text" id="basic-addon1"><i className="fas fa-key"></i></span>
 					</div>
 					<input type="text" className="form-control" placeholder="Enter your password"/>
 				</div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootswatch/dist/lumen/bootstrap.min.css';
 // import './App.css';
 import Navbar from './components/Navbar';
@@ -13,6 +13,11 @@ import {
 } from 'react-router-dom';
 
 function App() {
+
+	const url = "https://urrs.herokuapp.com"; //backend
+
+	const [user, setUser] = useState ({})
+
 	return (
 		<React.Fragment>
 			<Router>
@@ -25,7 +30,9 @@ function App() {
 					</Route>
 
 					<Route path ="/login">
-						<LandingPage />
+						<LandingPage 
+						url={url}
+						/>
 					</Route>
 
 					<Route path ="/requests">

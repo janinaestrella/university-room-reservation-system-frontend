@@ -2,7 +2,21 @@ import React from 'react';
 import Login from './../components/Login';
 import Register from './../components/Register';
 
-const LandingPage = () => {
+const LandingPage = ({url}) => {
+
+	const registerUser = (user) => {
+		fetch (url + '/users/register', {
+			method: 'POST',
+			headers: {
+				'Content-Type' : 'application/json'
+			},
+			body: JSON.stringify(user)
+		})
+		.then( response => response.json())
+		.then( data => {
+			console.log(data)
+		})
+	}
 
 	return (
 		<div className="container text-center my-5">
@@ -21,7 +35,10 @@ const LandingPage = () => {
 					<div className=" container border rounded-sm p-3">
 						<h1>Register</h1>
 						
-							<Register />
+							<Register 
+							url={url}
+							registerUser={registerUser}
+							/>
 							
 					</div>
 				</div>

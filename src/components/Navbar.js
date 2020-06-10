@@ -5,7 +5,7 @@ const Navbar = () => {
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-			<Link className="navbar-brand" to="#"><i class="fas fa-chalkboard-teacher"></i> URRS</Link>
+			<Link className="navbar-brand" to="#"><i className="fas fa-chalkboard-teacher"></i> URRS</Link>
 			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>
 			</button>
