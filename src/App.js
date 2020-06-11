@@ -99,15 +99,24 @@ function App() {
 	}
 
 	const handleReserveRoom = (room) => {
+		//contains specific room details to be reserved
 		setReserveRoom(room)
-		console.log({room}) //contains specific room details to be reserved
-
-		//get dates from calendar
-
-		//update setRequest - details will be used to save to Reservations Table
-
-		//redirect to My Reservations page if okay na ung laman ni Request
 	}
+
+	const handleSubmitReservation = (reserveRoom, request) => {
+		//contains specific room details to be reserved and dates
+		console.log(reserveRoom, request)
+
+		//convert to ISO and getTime
+
+		//check if end date is not past start date
+
+		//check if chosen start and end time will not clash with other reservations
+
+		//save to reservations table using post method
+	}
+
+	
 
 	return (
 		<React.Fragment>
@@ -140,7 +149,8 @@ function App() {
 					<Route path ="/requests">
 						<Request 
 						url={url}
-						reserveRoom={reserveRoom}/>
+						reserveRoom={reserveRoom}
+						handleSubmitReservation={handleSubmitReservation}/>
 					</Route>
 
 					<Route path ="/reservations">

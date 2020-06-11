@@ -4,21 +4,55 @@ import addMonths from "date-fns/addMonths";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 import "react-datepicker/dist/react-datepicker.css";
+import { Link } from 'react-router-dom';
 
 
-const Request = ({url, reserveRoom}) => {
+const Request = ({url, reserveRoom, handleSubmitReservation}) => {
 	
-	const [startDate, setStartDate] = useState(new Date());
-	const [startTime, setStartTime] = useState(new Date());
-	const [endTime, setEndTime] = useState(new Date());
+	let today = new Date()
 
+	const [request, setRequest] = useState({
+		reserveDate: null,
+		reserveTimeStart: null,
+		reserveTimeEnd: null	
+	})
+	
+	const handleChangeDate = date => {
+
+		let stringDate = date.toDateString()
+
+		setRequest({
+			...request,
+			reserveDate : date,
+			stringDate: stringDate
+		})
+	}
+
+	const handleChangeStartTime = startTime => {
+
+		// let timeStart = startTime.getTime()
+
+		setRequest({
+			...request,
+			reserveTimeStart : startTime
+		})
+	}
+
+	const handleChangeEndTime = endTime => {
+		// let timeEnd = endTime.getTime()
+		
+		setRequest({
+			...request,
+			reserveTimeEnd : endTime
+		})
+	}
 
 	return (
 	
 	<div className="container my-4">
 		<div className="row">
 			<div className="col-12 border-bottom border-primary">
-				<h1>Reserve a room</h1>
+				<h1>Reserve a room | {request.stringDate} </h1>
 			</div>
 		</div>
 
@@ -54,10 +88,11 @@ const Request = ({url, reserveRoom}) => {
 					
 					{/*choose a date*/}
 					<DatePicker
-				      selected={startDate}
-				      onChange={date => setStartDate(date)}
+				      selected={request.reserveDate ? request.reserveDate : today}
+				      // onChange={date => setStartDate(date)}
+				      onChange={handleChangeDate}
 				      minDate={new Date()}
-				      maxDate={addMonths(new Date(), 3)} //can reserve only 3 months from current date
+				      maxDate={addMonths(new Date(), 3)} //can reserve only 3 months from today's date
 				      showDisabledMonthNavigation
 				      inline
 				    />
@@ -66,8 +101,8 @@ const Request = ({url, reserveRoom}) => {
 					<div className="time_container my-1">	
 					<span>Start Time:</span> &nbsp;
 					<DatePicker
-				      selected={startTime}
-				      onChange={startTime => setStartTime(startTime)}
+				      selected={request.reserveTimeStart}
+				      onChange={handleChangeStartTime}
 				      showTimeSelect
 				      showTimeSelectOnly
 				      timeIntervals={60}
@@ -94,8 +129,9 @@ const Request = ({url, reserveRoom}) => {
 				    <div className="time_container my-1">
 				    <span>End Time:</span> &nbsp;
 					<DatePicker
-				      selected={endTime}
-				      onChange={endTime => setStartTime(endTime)}
+				      selected={request.reserveTimeEnd}
+				      //onChange={endTime => setEndTime(endTime.getTime())}
+				      onChange={handleChangeEndTime}
 				      showTimeSelect
 				      showTimeSelectOnly
 				      timeIntervals={60}
@@ -120,7 +156,7 @@ const Request = ({url, reserveRoom}) => {
 
 				    {/*button*/}
 					<div className="container my-3 d-flex justify-content-center">
-				    	<button className="btn btn-primary">Submit Reservation</button>
+				    	<Link to='/reservations' onClick={() => handleSubmitReservation(reserveRoom, request)} className="btn btn-primary">Submit Reservation</Link>
 					</div>
 
 				</div>
