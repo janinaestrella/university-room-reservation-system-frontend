@@ -24,6 +24,7 @@ function App() {
 	const [updatedRoom, setUpdatedRoom] = useState({_id:null})
 
 	const [reserveRoom, setReserveRoom] = useState({})
+	const [reservation, setReservation] = useState({})
 
 	const [user, setUser] = useState ({
 		_id: null,
@@ -101,22 +102,7 @@ function App() {
 	const handleReserveRoom = (room) => {
 		//contains specific room details to be reserved
 		setReserveRoom(room)
-	}
-
-	const handleSubmitReservation = (reserveRoom, request) => {
-		//contains specific room details to be reserved and dates
-		console.log(reserveRoom, request)
-
-		//convert to ISO and getTime
-
-		//check if end date is not past start date
-
-		//check if chosen start and end time will not clash with other reservations
-
-		//save to reservations table using post method
-	}
-
-	
+	}	
 
 	return (
 		<React.Fragment>
@@ -149,8 +135,7 @@ function App() {
 					<Route path ="/requests">
 						<Request 
 						url={url}
-						reserveRoom={reserveRoom}
-						handleSubmitReservation={handleSubmitReservation}/>
+						reserveRoom={reserveRoom}/>
 					</Route>
 
 					<Route path ="/reservations">

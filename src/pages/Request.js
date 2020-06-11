@@ -4,11 +4,11 @@ import addMonths from "date-fns/addMonths";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 import "react-datepicker/dist/react-datepicker.css";
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
-const Request = ({url, reserveRoom, handleSubmitReservation}) => {
-	
+const Request = ({url, reserveRoom}) => {
+	// console.log(reserveRoom === undefined)
 	let today = new Date()
 
 	const [request, setRequest] = useState({
@@ -30,8 +30,6 @@ const Request = ({url, reserveRoom, handleSubmitReservation}) => {
 
 	const handleChangeStartTime = startTime => {
 
-		// let timeStart = startTime.getTime()
-
 		setRequest({
 			...request,
 			reserveTimeStart : startTime
@@ -39,11 +37,49 @@ const Request = ({url, reserveRoom, handleSubmitReservation}) => {
 	}
 
 	const handleChangeEndTime = endTime => {
-		// let timeEnd = endTime.getTime()
 		
 		setRequest({
 			...request,
 			reserveTimeEnd : endTime
+		})
+	}
+
+	const handleSubmit = e =>{
+		e.preventDefault();
+		
+		if (request.reserveTimeStart >= request.reserveTimeEnd ||
+			request.reserveTimeStart === request.reserveTimeEnd){
+			return alert ("End time must be greater than Start time")
+		}
+
+		let reserveDetails = {
+			roomId: reserveRoom._id,
+			reserveDate: request.reserveDate.toISOString(),
+			reserveTimeStart: request.reserveTimeStart.toISOString(),
+			reserveTimeEnd: request.reserveTimeEnd.toISOString()
+		}
+
+		console.log(reserveDetails)
+		
+		// save to reservations table using post method
+		fetch (url + '/reservations', {
+			method:'POST',
+			headers: {
+				'Authorization' : window.localStorage.getItem('token'),
+				'Content-Type' : 'application/json'
+			},
+			body: JSON.stringify(reserveDetails)
+		})
+		.then(response => {
+			return response.json()
+		})
+		.then(data => {
+			console.log(data)
+			if(data.error){
+				alert(data.error)
+			} else {
+				alert("Reserved! Please wait for your Reservation Approval.")
+			}
 		})
 	}
 
@@ -89,7 +125,6 @@ const Request = ({url, reserveRoom, handleSubmitReservation}) => {
 					{/*choose a date*/}
 					<DatePicker
 				      selected={request.reserveDate ? request.reserveDate : today}
-				      // onChange={date => setStartDate(date)}
 				      onChange={handleChangeDate}
 				      minDate={new Date()}
 				      maxDate={addMonths(new Date(), 3)} //can reserve only 3 months from today's date
@@ -130,7 +165,6 @@ const Request = ({url, reserveRoom, handleSubmitReservation}) => {
 				    <span>End Time:</span> &nbsp;
 					<DatePicker
 				      selected={request.reserveTimeEnd}
-				      //onChange={endTime => setEndTime(endTime.getTime())}
 				      onChange={handleChangeEndTime}
 				      showTimeSelect
 				      showTimeSelectOnly
@@ -156,7 +190,7 @@ const Request = ({url, reserveRoom, handleSubmitReservation}) => {
 
 				    {/*button*/}
 					<div className="container my-3 d-flex justify-content-center">
-				    	<Link to='/reservations' onClick={() => handleSubmitReservation(reserveRoom, request)} className="btn btn-primary">Submit Reservation</Link>
+				    	<button onClick={handleSubmit} className="btn btn-primary">Submit Reservation</button>
 					</div>
 
 				</div>

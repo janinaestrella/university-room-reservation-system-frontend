@@ -19,7 +19,6 @@ const RoomCard = ({room, url, handleLastDeletedRoom, handleReserveRoom}) => {
 		})
 	}
 
-
 	return (
 		<div>
 			<div className="roomList card my-3">
