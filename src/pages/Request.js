@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import DatePicker from "react-datepicker"; //npm install react-datepicker
-
+import addMonths from "date-fns/addMonths";
+import setMinutes from "date-fns/setMinutes";
+import setHours from "date-fns/setHours";
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -55,6 +57,7 @@ const Request = ({url, reserveRoom}) => {
 				      selected={startDate}
 				      onChange={date => setStartDate(date)}
 				      minDate={new Date()}
+				      maxDate={addMonths(new Date(), 3)} //can reserve only 3 months from current date
 				      showDisabledMonthNavigation
 				      inline
 				    />
@@ -67,7 +70,21 @@ const Request = ({url, reserveRoom}) => {
 				      onChange={startTime => setStartTime(startTime)}
 				      showTimeSelect
 				      showTimeSelectOnly
-				      timeIntervals={30}
+				      timeIntervals={60}
+				      excludeTimes={[
+				        setHours(setMinutes(new Date(), 0), 0),
+				        setHours(setMinutes(new Date(), 0), 1),
+				        setHours(setMinutes(new Date(), 0), 2),
+				        setHours(setMinutes(new Date(), 0), 3),
+				        setHours(setMinutes(new Date(), 0), 4),
+				        setHours(setMinutes(new Date(), 0), 5),
+				        setHours(setMinutes(new Date(), 0), 6),
+				        setHours(setMinutes(new Date(), 0), 21),
+				        setHours(setMinutes(new Date(), 0), 22),
+				        setHours(setMinutes(new Date(), 0), 23),
+				        setHours(setMinutes(new Date(), 0), 24),
+				        setHours(setMinutes(new Date(), 0), 25)
+				      ]}
 				      timeCaption="Time"
 				      dateFormat="h:mm aa"
 				    />
@@ -81,7 +98,21 @@ const Request = ({url, reserveRoom}) => {
 				      onChange={endTime => setStartTime(endTime)}
 				      showTimeSelect
 				      showTimeSelectOnly
-				      timeIntervals={30}
+				      timeIntervals={60}
+				      excludeTimes={[
+				        setHours(setMinutes(new Date(), 0), 0),
+				        setHours(setMinutes(new Date(), 0), 1),
+				        setHours(setMinutes(new Date(), 0), 2),
+				        setHours(setMinutes(new Date(), 0), 3),
+				        setHours(setMinutes(new Date(), 0), 4),
+				        setHours(setMinutes(new Date(), 0), 5),
+				        setHours(setMinutes(new Date(), 0), 6),
+				        setHours(setMinutes(new Date(), 0), 21),
+				        setHours(setMinutes(new Date(), 0), 22),
+				        setHours(setMinutes(new Date(), 0), 23),
+				        setHours(setMinutes(new Date(), 0), 24),
+				        setHours(setMinutes(new Date(), 0), 25)
+				      ]}
 				      timeCaption="Time"
 				      dateFormat="h:mm aa"
 				    />
