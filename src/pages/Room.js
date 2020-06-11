@@ -4,7 +4,7 @@ import AddRoomForm from './../components/AddRoomForm';
 import UpdateRoomForm from './../components/UpdateRoomForm';
 import LoadingSpinner from './../components/LoadingSpinner';
 
-const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, handleUpdatedRoom, isLoading}) => {
+const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, handleUpdatedRoom, isLoading, handleReserveRoom}) => {
 	
 	let roomDetails = rooms.map ( room => {
 		return (
@@ -13,6 +13,7 @@ const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, han
 				room={room}
 				url={url} 
 				handleLastDeletedRoom={handleLastDeletedRoom}
+				handleReserveRoom={handleReserveRoom}
 				/>
 			</div>
 		)
@@ -45,7 +46,7 @@ const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, han
 	
 
 	return (
-		<div className="container my-5">
+		<div className="container my-4">
 			<div className="row">
 				{/*rightside for admin only*/}
 				<div className="col-12 col-sm-12 col-md-4 col-lg-3">

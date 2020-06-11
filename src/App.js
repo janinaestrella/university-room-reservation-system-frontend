@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import 'bootswatch/dist/lumen/bootstrap.min.css';
 import './App.css';
 import Navbar from './components/Navbar';
-import LoadingSpinner from './components/LoadingSpinner';
 import LandingPage from './pages/LandingPage';
 import Room from './pages/Room';
 import Reservation from './pages/Reservation';
@@ -23,6 +22,8 @@ function App() {
 	const [lastAddedRoom, setLastAddedRoom] = useState({_id: null})
 	const [lastDeletedRoom, setLastDeletedRoom] = useState({_id: null})
 	const [updatedRoom, setUpdatedRoom] = useState({_id:null})
+
+	const [reserveRoom, setReserveRoom] = useState({})
 
 	const [user, setUser] = useState ({
 		_id: null,
@@ -97,6 +98,17 @@ function App() {
 		setUpdatedRoom({ _id: id})
 	}
 
+	const handleReserveRoom = (room) => {
+		setReserveRoom(room)
+		console.log({room}) //contains specific room details to be reserved
+
+		//get dates from calendar
+
+		//update setRequest - details will be used to save to Reservations Table
+
+		//redirect to My Reservations page if okay na ung laman ni Request
+	}
+
 	return (
 		<React.Fragment>
 			<Router>
@@ -113,6 +125,7 @@ function App() {
 						handleLastDeletedRoom={handleLastDeletedRoom}
 						handleUpdatedRoom={handleUpdatedRoom}
 						isLoading={isLoading}
+						handleReserveRoom={handleReserveRoom}
 						/>
 					</Route>
 
@@ -125,7 +138,9 @@ function App() {
 					</Route>
 
 					<Route path ="/requests">
-						<Request />
+						<Request 
+						url={url}
+						reserveRoom={reserveRoom}/>
 					</Route>
 
 					<Route path ="/reservations">

@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './../App.css';
 
-const RoomCard = ({room, url, handleLastDeletedRoom}) => {
+const RoomCard = ({room, url, handleLastDeletedRoom, handleReserveRoom}) => {
 
 	const handleDelete = id => {
 		fetch (url + '/rooms/' + id, {
@@ -40,7 +41,7 @@ const RoomCard = ({room, url, handleLastDeletedRoom}) => {
 
 						<div className="card-footer d-flex justify-content-end">
 							<button onClick={() => handleDelete(room._id)} className="btn btn-danger mx-1">Delete</button>
-							<button className="btn btn-primary mx-1">I'd like to reserve this!</button>
+							<Link to={'/requests'} onClick={() => handleReserveRoom(room)} className="btn btn-primary mx-1">I'd like to reserve this!</Link>
 						</div>
 
 					</div>
