@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Reservation = ({user}) => {
+const Reservation = ({user, reservation}) => {
 
 	return (
 		<div className="container my-4">
@@ -26,19 +26,19 @@ const Reservation = ({user}) => {
 	                    </thead>
 
 	                    <tbody>
-	                    	{user.isAdmin ? <td>reserverName</td> : ""}
-	                    	<td>roomName</td>
-	                    	<td>location</td>
-	                    	<td>date</td>
-	                    	<td>start time</td>
-	                    	<td>end time</td>
-	                    	<td>price</td>
-	                    	<td>Status</td>
+	                    	{user.isAdmin ? <td>{reservation.reserverName}</td> : ""}
+	                    	<td>{reservation.roomName}</td>
+	                    	<td>reservation.location</td>
+	                    	<td>{reservation.reserveDate}</td>
+	                    	<td>{reservation.reserveTimeStart}</td>
+	                    	<td>{reservation.reserveTimeEnd}</td>
+	                    	<td>{reservation.price}</td>
+	                    	<td>{reservation.isApproved ? "Approved" : "Pending for Approval"}</td>
 	                    	<td>
 	                    		<div><button className="btn btn-info my-1">Pay Now</button></div>
 	                    		<div><button className="btn btn-danger my-1">Delete</button></div>
 	                    		{user.isAdmin ?
-	                    		<div><button className="btn btn-warning my-1">Update</button></div>	
+	                    		<div><button className="btn btn-warning my-1">Approved</button></div>	
 	                    		: ""}
 	                    	</td>
 	                        

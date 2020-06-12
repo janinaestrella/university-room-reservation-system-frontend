@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage';
 import Room from './pages/Room';
 import Reservation from './pages/Reservation';
 import Request from './pages/Request';
+import { Redirect } from 'react-router-dom';
 import { 
 	BrowserRouter as Router, 
 	Route,
@@ -24,6 +25,7 @@ function App() {
 	const [updatedRoom, setUpdatedRoom] = useState({_id:null})
 
 	const [reserveRoom, setReserveRoom] = useState({})
+	const [reservation, setReservation] = useState({})
 
 	const [user, setUser] = useState ({
 		_id: null,
@@ -103,6 +105,32 @@ function App() {
 		setReserveRoom(room)
 	}	
 
+	const handleReservation = (reserveDetails) => {
+		// save to reservations table using post method
+		fetch (url + '/reservations', {
+			method:'POST',
+			headers: {
+				'Authorization' : window.localStorage.getItem('token'),
+				'Content-Type' : 'application/json'
+			},
+			body: JSON.stringify(reserveDetails)
+		})
+		.then(response => {
+			return response.json()
+		})
+		.then(reserveDetails => {
+			// console.log(reserveDetails)
+			if(reserveDetails.error){
+				alert(reserveDetails.error)
+			} else {
+				setReservation(reserveDetails)
+				alert("Reserved! Please wait for your Reservation Approval.")
+				// console.log(reserveDetails)
+			}
+
+		})
+	}
+
 	return (
 		<React.Fragment>
 			<Router>
@@ -134,12 +162,16 @@ function App() {
 					<Route path ="/requests">
 						<Request 
 						url={url}
-						reserveRoom={reserveRoom}/>
+						reserveRoom={reserveRoom}
+						handleReservation={handleReservation}
+						/>
 					</Route>
 
 					<Route path ="/reservations">
 						<Reservation 
-						user={user}/>
+						user={user}
+						reservation={reservation}
+						/>
 					</Route>
 
 				</Switch>

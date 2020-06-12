@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Redirect } from 'react-router-dom';
 
 
-const Request = ({url, reserveRoom}) => {
+const Request = ({url, reserveRoom, handleReservation}) => {
 	// console.log(reserveRoom === undefined)
 	let today = new Date()
 
@@ -59,28 +59,9 @@ const Request = ({url, reserveRoom}) => {
 			reserveTimeEnd: request.reserveTimeEnd.toISOString()
 		}
 
-		console.log(reserveDetails)
+		// console.log(reserveDetails)
+		handleReservation(reserveDetails)
 		
-		// save to reservations table using post method
-		fetch (url + '/reservations', {
-			method:'POST',
-			headers: {
-				'Authorization' : window.localStorage.getItem('token'),
-				'Content-Type' : 'application/json'
-			},
-			body: JSON.stringify(reserveDetails)
-		})
-		.then(response => {
-			return response.json()
-		})
-		.then(data => {
-			console.log(data)
-			if(data.error){
-				alert(data.error)
-			} else {
-				alert("Reserved! Please wait for your Reservation Approval.")
-			}
-		})
 	}
 
 	return (
