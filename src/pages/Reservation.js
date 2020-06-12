@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReservationTableRow from './../components/ReservationTableRow';
 
-const Reservation = ({user, url, reservation}) => {
+const Reservation = ({user, url, reservation, handleUpdateStatus}) => {
 	
 	const [reservations, setReservations] = useState([]);
-
-	fetch(url + '/reservations', {
-		headers: {
-			'Authorization' : window.localStorage.getItem('token')
-		}
-	})
-	.then(response => {
-		return response.json();
-	})
-	.then(reservations => {
-		// console.log(reservations)
-		setReservations(reservations)
-	})
+	
+	useEffect (() => {
+		fetch(url + '/reservations', {
+			headers: {
+				'Authorization' : window.localStorage.getItem('token')
+			}
+		})
+		.then(response => {
+			return response.json();
+		})
+		.then(reservations => {
+			// console.log(reservations)
+			setReservations(reservations)
+		})
+	}, [handleUpdateStatus])
 
 	let reservationList = reservations.map( reservation => {
 		return <ReservationTableRow 
@@ -24,6 +26,7 @@ const Reservation = ({user, url, reservation}) => {
 				user={user} 
 				reservation={reservation}
 				url={url}
+				handleUpdateStatus={handleUpdateStatus}
 				/>
 	})
 

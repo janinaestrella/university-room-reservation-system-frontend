@@ -6,7 +6,6 @@ import LandingPage from './pages/LandingPage';
 import Room from './pages/Room';
 import Reservation from './pages/Reservation';
 import Request from './pages/Request';
-import { Redirect } from 'react-router-dom';
 import { 
 	BrowserRouter as Router, 
 	Route,
@@ -27,6 +26,8 @@ function App() {
 	const [reserveRoom, setReserveRoom] = useState({})
 	const [reservation, setReservation] = useState({})
 
+	const [updateStatus, setUpdateStatus] = useState({_id: null})
+	
 	const [user, setUser] = useState ({
 		_id: null,
 		firstname: null,
@@ -34,6 +35,7 @@ function App() {
 		email: null,
 		isAdmin: false,
 	})
+
 	
 	//Authorization check. This will fire if user null values will be changed
 	useEffect( () => {
@@ -131,6 +133,10 @@ function App() {
 		})
 	}
 
+	const handleUpdateStatus = (id) => {
+		setUpdateStatus({_id: id})
+	}
+
 	return (
 		<React.Fragment>
 			<Router>
@@ -172,6 +178,7 @@ function App() {
 						user={user}
 						reservation={reservation}
 						url={url}
+						handleUpdateStatus={handleUpdateStatus}
 						/>
 					</Route>
 

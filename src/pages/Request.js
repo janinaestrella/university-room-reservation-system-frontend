@@ -4,8 +4,6 @@ import addMonths from "date-fns/addMonths";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 import "react-datepicker/dist/react-datepicker.css";
-import { Redirect } from 'react-router-dom';
-
 
 const Request = ({url, reserveRoom, handleReservation}) => {
 	// console.log(reserveRoom === undefined)
