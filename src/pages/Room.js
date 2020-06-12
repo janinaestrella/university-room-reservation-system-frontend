@@ -51,14 +51,9 @@ const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, han
 				{/*rightside for admin only*/}
 				<div className="col-12 col-sm-12 col-md-4 col-lg-3">
 					<div className="row">
-						<div className="col-12 border-bottom border-primary title">
-							<h1>Add a room</h1>
-						</div>
+						
 						{addRoom()}
-
-						<div className="col-12 border-bottom border-primary title mt-3">
-							<h1>Update a room</h1>
-						</div>
+						
 						{udpateRoom()}
 						
 					</div>
@@ -72,8 +67,6 @@ const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, han
 					</div>
 
 					{isLoading ? <LoadingSpinner/> : roomDetails}
-					
-
 
 				</div>
 			</div>

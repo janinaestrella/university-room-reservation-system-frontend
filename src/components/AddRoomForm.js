@@ -56,6 +56,10 @@ const AddRoomForm = ({url, handleLastAddedRoom}) => {
 
 
 	return (
+		<>
+		<div className="col-12 border-bottom border-primary title">
+			<h1>Add a room</h1>
+		</div>
 		<div className="py-3 mx-3">
 			<form onSubmit={handleSubmit}>
 				<div className="form-group">
@@ -102,7 +106,7 @@ const AddRoomForm = ({url, handleLastAddedRoom}) => {
 				</div>
 			</form>
 		</div>
-
+		</>
 	)
 }
 

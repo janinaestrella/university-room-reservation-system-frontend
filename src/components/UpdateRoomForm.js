@@ -69,6 +69,10 @@ const UpdateRoomForm = ({url, rooms, handleUpdatedRoom}) => {
 
 
 	return (
+		<>
+		<div className="col-12 border-bottom border-primary title mt-3">
+			<h1>Update a room</h1>
+		</div>
 		<div className="py-3 mx-3">
 			<form onSubmit={handleSubmit}>
 
@@ -118,6 +122,7 @@ const UpdateRoomForm = ({url, rooms, handleUpdatedRoom}) => {
 				</div>
 			</form>
 		</div>
+		</>
 	)
 }
 
