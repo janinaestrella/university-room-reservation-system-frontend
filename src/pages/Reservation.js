@@ -1,6 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ReservationTableRow from './../components/ReservationTableRow';
 
-const Reservation = ({user, reservation}) => {
+const Reservation = ({user, url, reservation}) => {
+	
+	const [reservations, setReservations] = useState([]);
+
+	fetch(url + '/reservations', {
+		headers: {
+			'Authorization' : window.localStorage.getItem('token')
+		}
+	})
+	.then(response => {
+		return response.json();
+	})
+	.then(reservations => {
+		// console.log(reservations)
+		setReservations(reservations)
+	})
+
+	let reservationList = reservations.map( reservation => {
+		return <ReservationTableRow 
+				key={reservation._id} 
+				user={user} 
+				reservation={reservation}
+				url={url}
+				/>
+	})
+
 
 	return (
 		<div className="container my-4">
@@ -13,7 +39,7 @@ const Reservation = ({user, reservation}) => {
 	                <table className="table table-hover">
 	                    <thead>
 	                        <tr>
-	                            {user.isAdmin ? <th>Reserved By</th> : ""}
+	                            {user.isAdmin ? <th>Reserved By</th> : null}
 	                            <th>Room Name</th>
 	                            <th>Location</th>
 	                            <th>Date</th>
@@ -25,24 +51,8 @@ const Reservation = ({user, reservation}) => {
 	                        </tr>
 	                    </thead>
 
-	                    <tbody>
-	                    	{user.isAdmin ? <td>{reservation.reserverName}</td> : ""}
-	                    	<td>{reservation.roomName}</td>
-	                    	<td>reservation.location</td>
-	                    	<td>{reservation.reserveDate}</td>
-	                    	<td>{reservation.reserveTimeStart}</td>
-	                    	<td>{reservation.reserveTimeEnd}</td>
-	                    	<td>{reservation.price}</td>
-	                    	<td>{reservation.isApproved ? "Approved" : "Pending for Approval"}</td>
-	                    	<td>
-	                    		<div><button className="btn btn-info my-1">Pay Now</button></div>
-	                    		<div><button className="btn btn-danger my-1">Delete</button></div>
-	                    		{user.isAdmin ?
-	                    		<div><button className="btn btn-warning my-1">Approved</button></div>	
-	                    		: ""}
-	                    	</td>
-	                        
-	                    </tbody>
+	                    {reservationList}      
+	                  
 	                </table>
 
 	            </div>

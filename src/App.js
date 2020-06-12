@@ -171,6 +171,7 @@ function App() {
 						<Reservation 
 						user={user}
 						reservation={reservation}
+						url={url}
 						/>
 					</Route>
 
