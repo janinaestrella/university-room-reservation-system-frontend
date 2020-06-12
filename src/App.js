@@ -24,7 +24,6 @@ function App() {
 	const [updatedRoom, setUpdatedRoom] = useState({_id:null})
 
 	const [reserveRoom, setReserveRoom] = useState({})
-	const [reservation, setReservation] = useState({})
 
 	const [user, setUser] = useState ({
 		_id: null,
@@ -139,7 +138,8 @@ function App() {
 					</Route>
 
 					<Route path ="/reservations">
-						<Reservation />
+						<Reservation 
+						user={user}/>
 					</Route>
 
 				</Switch>
