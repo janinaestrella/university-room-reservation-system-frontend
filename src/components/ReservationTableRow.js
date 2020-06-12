@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
-	
+	console.log(reservation)
 	//convert date
 	let reserveDate = new Date (reservation.reserveDate).toDateString()
 
@@ -62,7 +62,7 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 				<tr>
 					{user.isAdmin ? <td>{reservation.reserverName}</td> : null}
 			    	<td>{reservation.roomName}</td>
-			    	<td>{reservation.location}</td>
+			    	<td>{reservation.roomLocation}</td>
 			    	<td>{reserveDate}</td>
 			    	<td>{reserveTimeStart}</td>
 			    	<td>{reserveTimeEnd}</td>

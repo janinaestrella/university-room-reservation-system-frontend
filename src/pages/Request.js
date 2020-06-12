@@ -54,9 +54,19 @@ const Request = ({url, reserveRoom, handleReservation}) => {
 			return alert ("End time must be greater than Start time")
 		}
 
+		function reserveDate() {
+			let requestReserveDate = request.reserveDate
+			
+			if (requestReserveDate == null){
+				return today.toISOString()
+			} else {
+				return requestReserveDate.toISOString()
+			}
+		}
+		
 		let reserveDetails = {
 			roomId: reserveRoom._id,
-			reserveDate: request.reserveDate.toISOString(),
+			reserveDate: reserveDate(),
 			reserveTimeStart: request.reserveTimeStart.toISOString(),
 			reserveTimeEnd: request.reserveTimeEnd.toISOString()
 		}
@@ -71,7 +81,7 @@ const Request = ({url, reserveRoom, handleReservation}) => {
 	<div className="container my-4">
 		<div className="row">
 			<div className="col-12 border-bottom border-primary">
-				<h1>Reserve a room | {request.stringDate} </h1>
+				<h1>Reserve a room | {request.stringDate ? request.stringDate : today.toDateString()} </h1>
 			</div>
 		</div>
 

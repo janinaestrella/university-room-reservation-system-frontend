@@ -31,15 +31,10 @@ const Navbar = ({handleLogout, user}) => {
 		}
 	}
 
-	return (
-		<nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-			<Link className="navbar-brand" to="/"><i className="fas fa-chalkboard-teacher"></i> URRS</Link>
-			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-				<span className="navbar-toggler-icon"></span>
-			</button>
-
-			<div className="collapse navbar-collapse" id="navbarColor01">
-				<ul className="navbar-nav mr-auto">
+	const leftNav = () => {
+		if(user._id){
+			return (
+				<React.Fragment>
 					<li className="nav-item">
 						<NavLink className="nav-link" exact to="/">Rooms</NavLink>
 					</li>
@@ -49,7 +44,21 @@ const Navbar = ({handleLogout, user}) => {
 					<li className="nav-item">
 						<NavLink className="nav-link" to="/reservations">My Reservations</NavLink>
 					</li>
-					
+				</React.Fragment>
+			)
+		}
+	}
+
+	return (
+		<nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+			<Link className="navbar-brand" to="/"><i className="fas fa-chalkboard-teacher"></i> URRS</Link>
+			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+				<span className="navbar-toggler-icon"></span>
+			</button>
+
+			<div className="collapse navbar-collapse" id="navbarColor01">
+				<ul className="navbar-nav mr-auto">
+					{leftNav()}
 				</ul>
 
 				<ul className="navbar-nav ml-auto">
