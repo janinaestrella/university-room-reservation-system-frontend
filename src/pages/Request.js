@@ -44,6 +44,10 @@ const Request = ({url, reserveRoom, handleReservation}) => {
 
 	const handleSubmit = e =>{
 		e.preventDefault();
+
+		if (request.reserveTimeStart == null || request.reserveTimeEnd == null){
+			return alert("Please input time.")
+		}
 		
 		if (request.reserveTimeStart >= request.reserveTimeEnd ||
 			request.reserveTimeStart === request.reserveTimeEnd){
