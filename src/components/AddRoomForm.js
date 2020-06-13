@@ -63,7 +63,7 @@ const AddRoomForm = ({url, handleLastAddedRoom}) => {
 		<div className="py-3 mx-3">
 			<form onSubmit={handleSubmit}>
 				<div className="form-group">
-					<input onChange={handleChange} type="text" className="form-control" name="name" id="name" placeholder="Enter Room Name"/>
+					<input onChange={handleChange} value={room.name} type="text" className="form-control" name="name" id="name" placeholder="Enter Room Name"/>
 						{/*<small id="name" className="text-muted">Enter Room Name</small>*/}
 				</div>
 
@@ -71,7 +71,7 @@ const AddRoomForm = ({url, handleLastAddedRoom}) => {
 					<div className="input-group-prepend">
 					<span className="input-group-text">&#8369;</span>
 					</div>
-					<input onChange={handleChange} type="text" className="form-control" name="price" id="price" placeholder="Enter Room price"/>
+					<input onChange={handleChange} value={room.price} type="text" className="form-control" name="price" id="price" placeholder="Enter Room price"/>
 					<div className="input-group-append">
 					<span className="input-group-text">.00</span>
 					</div>

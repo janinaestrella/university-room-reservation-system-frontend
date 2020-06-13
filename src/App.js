@@ -170,6 +170,7 @@ function App() {
 						url={url}
 						reserveRoom={reserveRoom}
 						handleReservation={handleReservation}
+						user={user}
 						/>
 					</Route>
 

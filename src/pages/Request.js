@@ -4,17 +4,25 @@ import addMonths from "date-fns/addMonths";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 import "react-datepicker/dist/react-datepicker.css";
+// import { Redirect } from 'react-router-dom'
 
-const Request = ({url, reserveRoom, handleReservation}) => {
-	// console.log(reserveRoom === undefined)
-	let today = new Date()
+const Request = ({url, reserveRoom, handleReservation,user}) => {
+
+	let defaultDate = new Date()
+
+	//set mins and ms to 00 before converting to ISO
+	let today = new Date(defaultDate.getFullYear(), defaultDate.getMonth(), defaultDate.getDate(), 0, 0, 0);
 
 	const [request, setRequest] = useState({
-		reserveDate: null,
+		reserveDate: today,
 		reserveTimeStart: null,
 		reserveTimeEnd: null	
 	})
 	
+	// if(!user._id){
+	// 	return <Redirect to="/login" />
+	// }
+
 	const handleChangeDate = date => {
 
 		let stringDate = date.toDateString()
@@ -22,7 +30,7 @@ const Request = ({url, reserveRoom, handleReservation}) => {
 		setRequest({
 			...request,
 			reserveDate : date,
-			stringDate: stringDate
+			stringDate: stringDate,
 		})
 	}
 
@@ -45,6 +53,13 @@ const Request = ({url, reserveRoom, handleReservation}) => {
 	const handleSubmit = e =>{
 		e.preventDefault();
 
+		let reserveDetails = {
+			roomId: reserveRoom._id,
+			reserveDate: reserveDate(),
+			reserveTimeStart: timeConvert(request.reserveTimeStart),
+			reserveTimeEnd: timeConvert(request.reserveTimeEnd)
+		}
+
 		if (request.reserveTimeStart == null || request.reserveTimeEnd == null){
 			return alert("Please input time.")
 		}
@@ -55,22 +70,24 @@ const Request = ({url, reserveRoom, handleReservation}) => {
 		}
 
 		function reserveDate() {
-			let requestReserveDate = request.reserveDate
-			
-			if (requestReserveDate == null){
+			let selectedDate = request.reserveDate
+
+			if (selectedDate == null){
+				// console.log(today.toISOString())
 				return today.toISOString()
 			} else {
+				//set mins and ms to 00 before converting to ISO
+				let requestReserveDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), 0, 0, 0);
+				// console.log(requestReserveDate)
 				return requestReserveDate.toISOString()
 			}
 		}
-		
-		let reserveDetails = {
-			roomId: reserveRoom._id,
-			reserveDate: reserveDate(),
-			reserveTimeStart: request.reserveTimeStart.toISOString(),
-			reserveTimeEnd: request.reserveTimeEnd.toISOString()
-		}
 
+		function timeConvert(time) {
+			let setTime = new Date(request.reserveDate.getFullYear(), request.reserveDate.getMonth(), request.reserveDate.getDate(), time.getHours(), 0, 0);
+			return (setTime.toISOString())
+		}
+		
 		// console.log(reserveDetails)
 		handleReservation(reserveDetails)
 		

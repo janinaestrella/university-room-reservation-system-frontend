@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ReservationTableRow from './../components/ReservationTableRow';
+// import { Redirect } from 'react-router-dom'
 
 const Reservation = ({user, url, reservation, handleUpdateStatus}) => {
 	
 	const [reservations, setReservations] = useState([]);
-	
+
 	useEffect (() => {
 		fetch(url + '/reservations', {
 			headers: {
@@ -29,6 +30,10 @@ const Reservation = ({user, url, reservation, handleUpdateStatus}) => {
 				handleUpdateStatus={handleUpdateStatus}
 				/>
 	})
+
+	// if(!user._id){
+	// 	return <Redirect to="/login" />
+	// }
 
 
 	return (

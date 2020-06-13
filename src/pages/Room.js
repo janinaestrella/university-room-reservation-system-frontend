@@ -3,6 +3,7 @@ import RoomCard from './../components/RoomCard';
 import AddRoomForm from './../components/AddRoomForm';
 import UpdateRoomForm from './../components/UpdateRoomForm';
 import LoadingSpinner from './../components/LoadingSpinner';
+// import { Redirect } from 'react-router-dom'
 
 const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, handleUpdatedRoom, isLoading, handleReserveRoom}) => {
 	
@@ -43,7 +44,10 @@ const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, han
 			)
 		}
 	}	
-	
+
+	// if(!user._id){
+	// 	return <Redirect to="/login" />
+	// }
 
 	return (
 		<div className="container my-4">

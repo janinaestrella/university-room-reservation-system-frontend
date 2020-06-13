@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
-	console.log(reservation)
+	// console.log(reservation)
 	//convert date
 	let reserveDate = new Date (reservation.reserveDate).toDateString()
 
