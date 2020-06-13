@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import moment from 'moment'
 
 const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 	// console.log(reservation)
 	//convert date
-	let reserveDate = new Date (reservation.reserveDate).toDateString()
+	let reserveDate = moment(reservation.reserveDate, "YYYYMMDD").format('LL');
 
 	//convert time
 	let startTime = new Date(reservation.reserveTimeStart)
