@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ErrorHandling from './../components/ErrorHandling';
-import SuccessMessage from './../components/SuccessMessage';
+// import SuccessMessage from './../components/SuccessMessage';
 
 const AddRoomForm = ({url, handleLastAddedRoom}) => {
 	
@@ -11,10 +11,10 @@ const AddRoomForm = ({url, handleLastAddedRoom}) => {
 		message: null
 	});
 
-	const [success, setSuccess] = useState({
-		isSuccess: false,
-		message: null
-	});
+	// const [success, setSuccess] = useState({
+	// 	isSuccess: false,
+	// 	message: null
+	// });
 
 	const handleChange = e => {
 		setRoom({
@@ -63,10 +63,10 @@ const AddRoomForm = ({url, handleLastAddedRoom}) => {
 					hasError: false,
 				})
 
-				setSuccess({
-			 		isSuccess: true,
-					message: "Added new room successfully."
-			 	})
+				// setSuccess({
+			 // 		isSuccess: true,
+				// 	message: "Added new room successfully."
+			 // 	})
 
 				handleLastAddedRoom(room._id)
 				setRoom({
@@ -90,7 +90,6 @@ const AddRoomForm = ({url, handleLastAddedRoom}) => {
 		</div>
 		<div className="py-3 mx-3">
 		{error.hasError ? <ErrorHandling message={error.message} /> : ""}
-		{success.isSuccess ? <SuccessMessage message={success.message} /> : ""}
 		
 			<form onSubmit={handleSubmit}>
 				<div className="form-group">

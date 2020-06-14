@@ -38,9 +38,9 @@ const Navbar = ({handleLogout, user}) => {
 					<li className="nav-item">
 						<NavLink className="nav-link" exact to="/">Rooms</NavLink>
 					</li>
-					<li className="nav-item">
+			{/*		<li className="nav-item">
 						<NavLink className="nav-link" to="/requests">Requests</NavLink>
-					</li>
+					</li>*/}
 					<li className="nav-item">
 						<NavLink className="nav-link" to="/reservations">My Reservations</NavLink>
 					</li>

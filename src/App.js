@@ -7,6 +7,7 @@ import Room from './pages/Room';
 import Reservation from './pages/Reservation';
 import Request from './pages/Request';
 import Page401Unauthorized  from './pages/Page401Unauthorized'
+import Page403Forbidden  from './pages/Page403Forbidden'
 import { 
 	BrowserRouter as Router, 
 	Route,
@@ -178,12 +179,25 @@ function App() {
 					</Route>
 
 					<Route path ="/requests">
-						<Request 
-						url={url}
-						reserveRoom={reserveRoom}
-						handleReservation={handleReservation}
-						user={user}
-						/>
+				{/*	{user._id && reserveRoom._id ? 
+							<Request 
+							url={url}
+							reserveRoom={reserveRoom}
+							handleReservation={handleReservation}
+							user={user}
+							/>
+						: <Page401Unauthorized />}*/}
+
+					{!user._id ? <Page401Unauthorized />
+						: !reserveRoom._id ? <Page403Forbidden />
+						: <Request 
+							url={url}
+							reserveRoom={reserveRoom}
+							handleReservation={handleReservation}
+							user={user}
+							/>
+					}
+					
 					</Route>
 
 					<Route path ="/reservations">
