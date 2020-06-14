@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage';
 import Room from './pages/Room';
 import Reservation from './pages/Reservation';
 import Request from './pages/Request';
+import Page401Unauthorized  from './pages/Page401Unauthorized'
 import { 
 	BrowserRouter as Router, 
 	Route,
@@ -103,9 +104,19 @@ function App() {
 		setUpdatedRoom({ _id: id})
 	}
 
-	const handleReserveRoom = (room) => {
+	const handleReserveRoom = (room, user) => {
+
+		if (!user._id){
+		console.log("you are not logged in")
+			
+		} else {
+
 		//contains specific room details to be reserved
 		setReserveRoom(room)
+		}
+
+
+
 	}	
 
 	const handleReservation = (reserveDetails) => {

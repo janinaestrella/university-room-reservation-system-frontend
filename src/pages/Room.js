@@ -7,7 +7,7 @@ import LoadingSpinner from './../components/LoadingSpinner';
 
 const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, handleUpdatedRoom, isLoading, handleReserveRoom}) => {
 	
-	let roomDetails = rooms.map ( room => {
+	let roomCard = rooms.map ( room => {
 		return (
 			<div key={room._id}>
 				<RoomCard 
@@ -15,6 +15,7 @@ const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, han
 				url={url} 
 				handleLastDeletedRoom={handleLastDeletedRoom}
 				handleReserveRoom={handleReserveRoom}
+				user={user}
 				/>
 			</div>
 		)
@@ -70,7 +71,7 @@ const Room = ({user, rooms, url, handleLastAddedRoom, handleLastDeletedRoom, han
 						<h1> Select a room </h1>	
 					</div>
 
-					{isLoading ? <LoadingSpinner/> : roomDetails}
+					{isLoading ? <LoadingSpinner/> : roomCard}
 
 				</div>
 			</div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './../App.css';
 
-const RoomCard = ({room, url, handleLastDeletedRoom, handleReserveRoom}) => {
+const RoomCard = ({room, url, handleLastDeletedRoom, handleReserveRoom, user}) => {
 
 	const handleDelete = id => {
 		fetch (url + '/rooms/' + id, {
@@ -39,8 +39,12 @@ const RoomCard = ({room, url, handleLastDeletedRoom, handleReserveRoom}) => {
 						</div>
 
 						<div className="card-footer d-flex justify-content-end">
-							<button onClick={() => handleDelete(room._id)} className="btn btn-danger mx-1">Delete</button>
-							<Link to={'/requests'} onClick={() => handleReserveRoom(room)} className="btn btn-primary mx-1">I'd like to reserve this!</Link>
+							{ 
+								user.isAdmin ?
+								<button onClick={() => handleDelete(room._id)} className="btn btn-danger mx-1">Delete</button>
+								: ""
+							}
+							<Link to={user._id ? '/requests' : '/login'} onClick={() => handleReserveRoom(room, user)} className="btn btn-primary mx-1">I'd like to reserve this!</Link>
 						</div>
 
 					</div>
