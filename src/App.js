@@ -6,8 +6,8 @@ import LandingPage from './pages/LandingPage';
 import Room from './pages/Room';
 import Reservation from './pages/Reservation';
 import Request from './pages/Request';
-import Page401Unauthorized  from './pages/Page401Unauthorized'
-import Page403Forbidden  from './pages/Page403Forbidden'
+import Page401Unauthorized  from './pages/Page401Unauthorized';
+import Page403Forbidden  from './pages/Page403Forbidden';
 import { 
 	BrowserRouter as Router, 
 	Route,
@@ -17,7 +17,7 @@ import {
 function App() {
 
 	// const url = "https://urrs.herokuapp.com"; //backend
-	const url = "http://localhost:5000"; //backend
+	const url = "http://localhost:5000"; //localbackend
 
 	const [isLoading, setIsLoading] = useState(false)
 	
@@ -191,7 +191,7 @@ function App() {
 					
 					</Route>
 
-					<Route path ="/reservations">
+					<Route exact path ="/reservations">
 					{!user._id ? <Page401Unauthorized />
 						: <Reservation 
 						user={user}
@@ -200,7 +200,6 @@ function App() {
 						handleUpdateStatus={handleUpdateStatus}
 						/>
 					}
-						
 					</Route>
 
 				</Switch>

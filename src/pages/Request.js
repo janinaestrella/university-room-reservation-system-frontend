@@ -19,10 +19,6 @@ const Request = ({url, reserveRoom, handleReservation,user}) => {
 		reserveTimeEnd: null	
 	})
 	
-	// if(!user._id){
-	// 	return <Redirect to="/login" />
-	// }
-
 	const handleChangeDate = date => {
 
 		let stringDate = date.toDateString()
