@@ -7,6 +7,14 @@ import { Redirect } from 'react-router-dom';
 
 const LandingPage = ({url, handleSetUserLogin, user}) => {
 	
+	const [registeredUser, setRegisteredUser] = useState({
+		firstname: null,
+		lastname: null,
+		email: null,
+		password: null,
+		confirmPassword: null,
+	});
+
 	const [error, setError] = useState({
 		hasError: false,
 		message: null
@@ -16,6 +24,11 @@ const LandingPage = ({url, handleSetUserLogin, user}) => {
 		isSuccess: false,
 		message: null
 	});
+
+	const [loginError, setLoginError] = useState({
+		hasError: false,
+		message: null
+	})
 
 	if(user._id){
 		return <Redirect to="/" />
@@ -42,6 +55,18 @@ const LandingPage = ({url, handleSetUserLogin, user}) => {
 			 		isSuccess: true,
 					message: "Registered Successfully. You may now login."
 			 	})
+
+			 	setError({
+			 		hasError: false
+			 	})
+
+			 	setRegisteredUser({
+			 		firstname: "",
+					lastname: "",
+					email: "",
+					password: "",
+					confirmPassword: "",
+			 	})
 			}
 		})
 	}
@@ -57,17 +82,18 @@ const LandingPage = ({url, handleSetUserLogin, user}) => {
 		.then ( response => {
 			return response.json()
 		})
-		.then ( data => {
-			if(data.error){
+		.then ( loginData => {
+			console.log(loginData)
+			if(loginData.error){
 				//show error
-				setError({
+				setLoginError({
 					hasError: true,
-					message: data.error
+					message: loginData.error
 				})
 			}else {
 				//save to localStorage
-				window.localStorage.setItem("token", "Bearer " + data.token)
-				handleSetUserLogin(data.user)
+				window.localStorage.setItem("token", "Bearer " + loginData.token)
+				handleSetUserLogin(loginData.user)
 			}
 		})
 	}
@@ -76,12 +102,11 @@ const LandingPage = ({url, handleSetUserLogin, user}) => {
 		<div className="container text-center my-5">
 			<h1>University Room Reservation System</h1>
 			<div className="row my-5">
-				{error.hasError ? <ErrorHandling message={error.message} /> : ""}
-				{success.isSuccess ? <SuccessMessage message={success.message} /> : ""}
-
 				<div className="col-12 col-md-6 mx-auto  px-5">
 					<div className="container border rounded-sm p-3">
 						<h1>Login</h1>
+						
+						{loginError.hasError ? <ErrorHandling message={loginError.message} /> : ""}
 
 							<Login 
 							loginUser={loginUser}
@@ -93,9 +118,13 @@ const LandingPage = ({url, handleSetUserLogin, user}) => {
 				<div className="col-12 col-md-6 mx-auto  px-5">
 					<div className=" container border rounded-sm p-3">
 						<h1>Register</h1>
-							
+
+						{error.hasError ? <ErrorHandling message={error.message} /> : ""}
+						{success.isSuccess ? <SuccessMessage message={success.message} /> : ""}
+
 							<Register 
 							registerUser={registerUser}
+							registeredUser={registeredUser}
 							/>
 							
 					</div>
