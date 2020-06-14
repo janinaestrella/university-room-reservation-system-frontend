@@ -53,12 +53,6 @@ const Request = ({url, reserveRoom, handleReservation,user}) => {
 	const handleSubmit = e =>{
 		e.preventDefault();
 
-		let reserveDetails = {
-			roomId: reserveRoom._id,
-			reserveDate: reserveDate(),
-			reserveTimeStart: timeConvert(request.reserveTimeStart),
-			reserveTimeEnd: timeConvert(request.reserveTimeEnd)
-		}
 
 		if (request.reserveTimeStart == null || request.reserveTimeEnd == null){
 			return alert("Please input time.")
@@ -67,6 +61,13 @@ const Request = ({url, reserveRoom, handleReservation,user}) => {
 		if (request.reserveTimeStart >= request.reserveTimeEnd ||
 			request.reserveTimeStart === request.reserveTimeEnd){
 			return alert ("End time must be greater than Start time")
+		}
+		
+		let reserveDetails = {
+			roomId: reserveRoom._id,
+			reserveDate: reserveDate(),
+			reserveTimeStart: timeConvert(request.reserveTimeStart),
+			reserveTimeEnd: timeConvert(request.reserveTimeEnd)
 		}
 
 		function reserveDate() {

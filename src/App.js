@@ -179,15 +179,6 @@ function App() {
 					</Route>
 
 					<Route path ="/requests">
-				{/*	{user._id && reserveRoom._id ? 
-							<Request 
-							url={url}
-							reserveRoom={reserveRoom}
-							handleReservation={handleReservation}
-							user={user}
-							/>
-						: <Page401Unauthorized />}*/}
-
 					{!user._id ? <Page401Unauthorized />
 						: !reserveRoom._id ? <Page403Forbidden />
 						: <Request 
@@ -201,12 +192,15 @@ function App() {
 					</Route>
 
 					<Route path ="/reservations">
-						<Reservation 
+					{!user._id ? <Page401Unauthorized />
+						: <Reservation 
 						user={user}
 						reservation={reservation}
 						url={url}
 						handleUpdateStatus={handleUpdateStatus}
 						/>
+					}
+						
 					</Route>
 
 				</Switch>
