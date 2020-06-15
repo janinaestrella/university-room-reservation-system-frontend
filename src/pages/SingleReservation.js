@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 const SingleReservation = ({reservationDetails, url}) => {
 
-	console.log(reservationDetails)
+	// console.log(reservationDetails)
 
 	return (		
 		<div className="container my-4">

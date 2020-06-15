@@ -19,8 +19,8 @@ import {
 
 function App() {
 
-	// const url = "https://urrs.herokuapp.com"; //backend
-	const url = "http://localhost:5000"; //localbackend
+	const url = "https://urrs.herokuapp.com"; //backend
+	// const url = "http://localhost:5000"; //localbackend
 
 	const [isLoading, setIsLoading] = useState(false)
 	

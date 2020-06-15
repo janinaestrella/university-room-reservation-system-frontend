@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom'
 
@@ -22,6 +22,8 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 	let endAmOrPm = endHour >= 12 ? 'PM' : 'AM'
 	endHour = (endHour % 12) || 12
 	let reserveTimeEnd = endHour +':'+ endMin + ' ' + endAmOrPm
+
+	const [receipt, setReceipt] = useState ({receipt:null})
 
 	// const handleDelete = id => {
 	// 	console.log(id)
@@ -58,6 +60,32 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 		})
 	}
 
+	const handlePayNow = (reservation) => {
+
+		let details = {
+			reservationID: reservation._id,
+			price: reservation.price,
+			userId: reservation.userId
+		}
+
+		fetch (url + '/reservations/stripe/' + reservation._id, {
+			method:'POST',
+			headers: {
+				'Authorization' : window.localStorage.getItem("token"),
+				'Content-Type' : "application/json",
+				'Accept': "application/json"
+			},
+			body: JSON.stringify(details)
+		})
+		.then(response => {
+			return response.text()
+		})
+		.then (receipt => {
+			setReceipt(receipt)
+		})
+	}
+			console.log(receipt)
+
 	return (
 		<>	
 			<tbody>
@@ -71,7 +99,8 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 			    	<td>&#8369;{reservation.price}</td>
 			    	<td>{reservation.isApproved ? "Approved" : "Pending for Approval"}</td>
 			    	<td>
-			    		<button className="btn btn-warning my-1 mx-1">Pay Now</button>
+			    		<button onClick={() => handlePayNow(reservation)} className="btn btn-warning my-1 mx-1">Pay Now</button>
+			    		{receipt != null ? <a href={receipt}>Show Receipt </a> : "" }
 			    		{/*<button onClick={() => handleUpdateDetails(reservation._id)} className="btn btn-info mx-1 my-1">Update</button>*/}
 			    		{/*<button onClick={() => handleDelete(reservation._id)} className="btn btn-danger my-1">Delete</button>*/}
 			    		{user.isAdmin ?
