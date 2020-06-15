@@ -1,5 +1,6 @@
 import React from 'react';
-import moment from 'moment'
+import moment from 'moment';
+import { Link } from 'react-router-dom'
 
 const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 	// console.log(reservation)
@@ -62,7 +63,7 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 			<tbody>
 				<tr>
 					{user.isAdmin ? <td>{reservation.reserverName}</td> : null}
-			    	<td>{reservation.roomName}</td>
+			    	<td><Link to={'/reservations/' + reservation._id}>{reservation.roomName}</Link></td>
 			    	<td>{reservation.roomLocation}</td>
 			    	<td>{reserveDate}</td>
 			    	<td>{reserveTimeStart}</td>

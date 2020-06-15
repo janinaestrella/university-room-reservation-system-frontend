@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import LandingPage from './pages/LandingPage';
 import Room from './pages/Room';
 import Reservation from './pages/Reservation';
+import ViewReservation from './pages/ViewReservation';
 import Request from './pages/Request';
 import Page401Unauthorized  from './pages/Page401Unauthorized';
 import Page403Forbidden  from './pages/Page403Forbidden';
@@ -202,6 +203,14 @@ function App() {
 						handleUpdateStatus={handleUpdateStatus}
 						/>
 					}
+					</Route>
+
+					<Route path = '/reservations/:id' >
+						<ViewReservation 
+						url={url}
+						reservation={reservation}
+						user={user}
+						/>
 					</Route>
 
 					<Route path='/pagenotfound'>
