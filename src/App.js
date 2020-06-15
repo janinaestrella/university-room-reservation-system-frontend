@@ -139,11 +139,10 @@ function App() {
 		.then(reserveDetails => {
 			// console.log(reserveDetails)
 			if(reserveDetails.error){
-				alert(reserveDetails.error)
+				return alert(reserveDetails.error)
 			} else {
-				setReservation(reserveDetails)
+				setReservation(reserveDetails);
 				alert("Reserved! Please wait for your Reservation Approval.")
-				// console.log(reserveDetails)
 			}
 
 		})

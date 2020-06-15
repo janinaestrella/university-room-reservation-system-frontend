@@ -4,7 +4,7 @@ import addMonths from "date-fns/addMonths";
 import setMinutes from "date-fns/setMinutes";
 import setHours from "date-fns/setHours";
 import "react-datepicker/dist/react-datepicker.css";
-// import { Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Request = ({url, reserveRoom, handleReservation,user}) => {
 
@@ -47,7 +47,7 @@ const Request = ({url, reserveRoom, handleReservation,user}) => {
 	}
 
 	const handleSubmit = e =>{
-		e.preventDefault();
+		// e.preventDefault();
 
 
 		if (request.reserveTimeStart == null || request.reserveTimeEnd == null){
@@ -197,7 +197,7 @@ const Request = ({url, reserveRoom, handleReservation,user}) => {
 
 				    {/*button*/}
 					<div className="container my-3 d-flex justify-content-center">
-				    	<button onClick={handleSubmit} className="btn btn-primary">Submit Reservation</button>
+				    	<Link to={'/reservations'} onClick={handleSubmit} className="btn btn-primary">Submit Reservation</Link>
 					</div>
 
 				</div>

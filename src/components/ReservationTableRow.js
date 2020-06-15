@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom'
 
 const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
-	// console.log(reservation)
+
 	//convert date
 	let reserveDate = moment(reservation.reserveDate, "YYYYMMDD").format('LL');
 
@@ -99,8 +99,11 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 			    	<td>&#8369;{reservation.price}</td>
 			    	<td>{reservation.isApproved ? "Approved" : "Pending for Approval"}</td>
 			    	<td>
+			    		{reservation.userId == user._id ? 
 			    		<button onClick={() => handlePayNow(reservation)} className="btn btn-warning my-1 mx-1">Pay Now</button>
-			    		{receipt != null ? <a href={receipt}>Show Receipt </a> : "" }
+			    		: ""}
+
+			    		{receipt != null ? <a href={receipt} target="_blank" rel="noopener norefferer">Show Receipt </a> : "" }
 			    		{/*<button onClick={() => handleUpdateDetails(reservation._id)} className="btn btn-info mx-1 my-1">Update</button>*/}
 			    		{/*<button onClick={() => handleDelete(reservation._id)} className="btn btn-danger my-1">Delete</button>*/}
 			    		{user.isAdmin ?
