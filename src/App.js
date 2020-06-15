@@ -8,10 +8,12 @@ import Reservation from './pages/Reservation';
 import Request from './pages/Request';
 import Page401Unauthorized  from './pages/Page401Unauthorized';
 import Page403Forbidden  from './pages/Page403Forbidden';
+import Page404NotFound  from './pages/Page404NotFound';
 import { 
 	BrowserRouter as Router, 
 	Route,
-	Switch
+	Switch,
+	Redirect
 } from 'react-router-dom';
 
 function App() {
@@ -201,6 +203,11 @@ function App() {
 						/>
 					}
 					</Route>
+
+					<Route path='/pagenotfound'>
+						<Page404NotFound />
+					</Route>
+					<Redirect to= '/pagenotfound' />
 
 				</Switch>
 
