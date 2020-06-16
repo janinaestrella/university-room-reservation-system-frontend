@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import moment from 'moment';
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 	// console.log(reservation)
@@ -22,8 +22,6 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 	let endAmOrPm = endHour >= 12 ? 'PM' : 'AM'
 	endHour = (endHour % 12) || 12
 	let reserveTimeEnd = endHour +':'+ endMin + ' ' + endAmOrPm
-
-	const [receipt, setReceipt] = useState ({})
 
 	// const handleDelete = id => {
 	// 	console.log(id)
@@ -88,11 +86,11 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 
 
 	const buttons = () => {
-		if (reservation.receipt != ""){
+		if (reservation.receipt !== ""){
 			//display receipt button only if paid
-			return <button className="btn btn-secondary my-1 mx-1"><a href={reservation.receipt} target="_blank">Show Receipt </a> </button>
+			return <button className="btn btn-secondary my-1 mx-1"><a href={reservation.receipt} target="_blank" rel="noopener noreferrer">Show Receipt </a> </button>
 		} else {
-			if (reservation.userId == user._id){
+			if (reservation.userId === user._id){
 				//show users own paynow button
 				return <button onClick={() => handlePayNow(reservation)} className="btn btn-success my-1 mx-1">Pay Now</button>
 			} else {
