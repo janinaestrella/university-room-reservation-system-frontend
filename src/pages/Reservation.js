@@ -31,11 +31,6 @@ const Reservation = ({user, url, reservation, handleUpdateStatus}) => {
 				/>
 	})
 
-	// if(!user._id){
-	// 	return <Redirect to="/login" />
-	// }
-
-
 	return (
 		<div className="container my-4">
 			<div className="row">

@@ -19,7 +19,7 @@ import {
 
 function App() {
 
-	const url = "https://urrs.herokuapp.com"; //backend
+	const url = "https://urrs.herokuapp.com"; //remotebackend
 	// const url = "http://localhost:5000"; //localbackend
 
 	const [isLoading, setIsLoading] = useState(false)

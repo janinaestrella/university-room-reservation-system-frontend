@@ -28,9 +28,9 @@ const SingleReservation = ({reservationDetails, url}) => {
 									</p>
 								</div>
 
-								<div className="card-footer d-flex justify-content-end">
+								{/*<div className="card-footer d-flex justify-content-end">
 									<button className="btn btn-warning mx-1">Pay Now</button>	
-								</div>
+								</div>*/}
 
 							</div>
 						</div>

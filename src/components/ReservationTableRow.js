@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom'
 
 const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
-
+	// console.log(reservation)
 	//convert date
 	let reserveDate = moment(reservation.reserveDate, "YYYYMMDD").format('LL');
 
@@ -23,7 +23,7 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 	endHour = (endHour % 12) || 12
 	let reserveTimeEnd = endHour +':'+ endMin + ' ' + endAmOrPm
 
-	const [receipt, setReceipt] = useState ({receipt:null})
+	const [receipt, setReceipt] = useState ({})
 
 	// const handleDelete = id => {
 	// 	console.log(id)
@@ -56,6 +56,7 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 			return response.json()
 		})
 		.then (reservation => {
+			console.log(reservation)
 			handleUpdateStatus(reservation._id)
 		})
 	}
@@ -67,24 +68,38 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 			price: reservation.price,
 			userId: reservation.userId
 		}
-
+		
+		//method to create receipt using stripe
 		fetch (url + '/reservations/stripe/' + reservation._id, {
 			method:'POST',
 			headers: {
 				'Authorization' : window.localStorage.getItem("token"),
 				'Content-Type' : "application/json",
-				'Accept': "application/json"
 			},
 			body: JSON.stringify(details)
 		})
 		.then(response => {
-			return response.text()
+			return response.json()
 		})
-		.then (receipt => {
-			setReceipt(receipt)
+		.then (updateReservation => {
+			handleUpdateStatus(reservation._id)
 		})
+	}	
+
+
+	const buttons = () => {
+		if (reservation.receipt != ""){
+			//display receipt button only if paid
+			return <button className="btn btn-secondary my-1 mx-1"><a href={reservation.receipt} target="_blank">Show Receipt </a> </button>
+		} else {
+			if (reservation.userId == user._id){
+				//show users own paynow button
+				return <button onClick={() => handlePayNow(reservation)} className="btn btn-success my-1 mx-1">Pay Now</button>
+			} else {
+				return ""
+			} 
+		}
 	}
-			console.log(receipt)
 
 	return (
 		<>	
@@ -99,16 +114,18 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 			    	<td>&#8369;{reservation.price}</td>
 			    	<td>{reservation.isApproved ? "Approved" : "Pending for Approval"}</td>
 			    	<td>
-			    		{reservation.userId == user._id ? 
-			    		<button onClick={() => handlePayNow(reservation)} className="btn btn-warning my-1 mx-1">Pay Now</button>
-			    		: ""}
+			    		<div>
+			    		{buttons()}
+						</div>
 
-			    		{receipt != null ? <a href={receipt} target="_blank" rel="noopener norefferer">Show Receipt </a> : "" }
 			    		{/*<button onClick={() => handleUpdateDetails(reservation._id)} className="btn btn-info mx-1 my-1">Update</button>*/}
 			    		{/*<button onClick={() => handleDelete(reservation._id)} className="btn btn-danger my-1">Delete</button>*/}
+			    		
+			    		<div>
 			    		{user.isAdmin ?
-			    		<button onClick={() => handleStatus(reservation._id)} className="btn btn-secondary my-1">Update Status</button>
+			    		<button onClick={() => handleStatus(reservation._id)} className="btn btn-warning my-1">Update Status</button>
 			    		: ""}
+			    		</div>
 		    	</td>
 	    	</tr>
 	    	</tbody>
