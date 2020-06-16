@@ -106,7 +106,8 @@ const ReservationTableRow = ({user, url, reservation, handleUpdateStatus}) => {
 			<tbody>
 				<tr>
 					{user.isAdmin ? <td>{reservation.reserverName}</td> : null}
-			    	<td><Link to={'/reservations/' + reservation._id}>{reservation.roomName}</Link></td>
+			    	<td>{reservation.roomName}</td>
+			    	{/*<td><Link to={'/reservations/' + reservation._id}>{reservation.roomName}</Link></td>*/}
 			    	<td>{reservation.roomLocation}</td>
 			    	<td>{reserveDate}</td>
 			    	<td>{reserveTimeStart}</td>
