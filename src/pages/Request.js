@@ -106,7 +106,7 @@ const Request = ({url, reserveRoom, handleReservation,user}) => {
 				<div className="roomList card my-3">
 					<div className="row no-gutters">
 						<div className="col-md-4">
-						<img src={url + /public/ + reserveRoom.image} className="card-img img-thumbnail" alt="Image not found"/>
+						<img src={reserveRoom.image} className="card-img img-thumbnail" alt="Image not found"/>
 						</div>
 
 						<div className="col-md-8">
